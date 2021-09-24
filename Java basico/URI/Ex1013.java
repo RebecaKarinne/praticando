@@ -10,7 +10,10 @@ public class Ex1013 {
         int b = scanner.nextInt();
         int c = scanner.nextInt();
 
-        int maiorAB = (a+b+(a+b) * (a-b)) / 2;
+        // A fórmula Math.abs calula o maior entre dois números
+
+        int maiorAB = (a + b + Math.abs(a-b)) / 2;
+        maiorAB = (maiorAB + c + Math.abs(maiorAB - c)) / 2;
 
         System.out.println(maiorAB + " é o maior.");
 
