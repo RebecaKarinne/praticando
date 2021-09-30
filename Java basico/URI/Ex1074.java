@@ -9,20 +9,18 @@ public class Ex1074 {
 
         for (int i = 0; i < N; i++){
             int X = scanner.nextInt();
-            if (X%2 == 0){
+            if (X == 0){
+                System.out.println("NULL");
+            } else if (X%2 == 0){
                 System.out.printf("EVEN ");
-            } else {
+            } else if (X%2 == 1 || X%2 == -1) {
                 System.out.printf("ODD ");
             }
 
             if (X > 0){
-                System.out.printf("POSITIVE");
-            } else {
+                System.out.println("POSITIVE");
+            } else if (X < 0) {
                 System.out.println("NEGATIVE");
-            }
-
-            if (X == 0){
-                System.out.println("NULL");
             }
         }
     }
