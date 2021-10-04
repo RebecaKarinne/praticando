@@ -7,12 +7,14 @@ public class Ex1146 {
         Scanner scanner = new Scanner(System.in);
         int X = scanner.nextInt();
 
-        for (int i = 1; i <= X; i++) {
-            System.out.print(i + " ");
-            while (X != 0) {
-                System.out.println();
-                X = scanner.nextInt();
+        while (X != 0) {
+            for (int i = 1; i < X; i++) {
+                System.out.print(i + " ") ;
             }
+            System.out.println(X);
+            X = scanner.nextInt();
         }
+
+        scanner.close();
     }
 }
