@@ -1,7 +1,11 @@
 // o nome do const é o dev que dá
+// Cada const desse é para pegar o valor do HTML
 const transactionsUl = document.querySelector('#transactions'); // A hashtag significa id
 const inputTransactionName = document.querySelector('#text');
 const inputTransactionAmount = document.querySelector('#amount');
+const balanceDisplay = document.querySelector('#balance');
+const incomeDisplay = document.querySelector('#money-plus');
+const expenseDisplay = document.querySelector('#money-minus');
 
 let dummyTransactions = [ // usando os colchetes porque é um array
     { id: 1, name: 'Bolo de brigadeiro', amount: -20},
@@ -59,6 +63,11 @@ const updateBalanceValues = () => {
                         .filter(value => value < 0)
                         .reduce((accumulator, transaction) => accumulator + transaction, 0);
     console.log('Somente os valores negativos: ' + expenses);
+
+    // jogar os valores pegos no HTML
+    balanceDisplay.textContent = `R$ ${total}`
+    incomeDisplay.textContent = `R$ ${income}`
+    expenseDisplay.textContent = `R$ ${expenses}`
 }
 
 const init = () => {
