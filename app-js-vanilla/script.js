@@ -14,11 +14,14 @@ let dummyTransactions = [ // usando os colchetes porque é um array
     { id: 4, name: 'Violão', amount: 150}
 ]
 
+// Gerador de ID número aleatório
+const geradorID = () => Math.round(Math.random() * 1000);
+
 const addTransactionInArray = (transactionName, transactionAmount) => {
     dummyTransactions.push({
-        id: 123, // aqui ainda está fixo pois não temos um gerador de ID
+        id: geradorID(), // aqui ainda está fixo pois não temos um gerador de ID
         name: transactionName,
-        amount: transactionAmount
+        amount: Number(transactionAmount)
     })
 }
 
@@ -33,11 +36,20 @@ const handleFormSubmit = event => {
     init();
 }
 
+const removeTransaction = ID => {
+    dummyTransactions = dummyTransactions.filter(transaction => transaction.id !== ID);
+    console.log(dummyTransactions);
+    init(); // o init aqui é para atualizar o form sem os deletados
+}
+
 form.addEventListener('submit', handleFormSubmit); // o form é do html
 
 const addTransactionIntoDOM = transaction => {
     const li = document.createElement('li');
-    li.innerHTML = `${transaction.name}`
+    li.innerHTML = `${transaction.name}
+                    <span> R$ ${transaction.amount} </span> 
+                    <button onClick="removeTransaction(${transaction.id})" >X</button>`
+    // atribuindo um nó para o li`
     transactionsUl.append(li);
 }
 
