@@ -7,12 +7,8 @@ const balanceDisplay = document.querySelector('#balance');
 const incomeDisplay = document.querySelector('#money-plus');
 const expenseDisplay = document.querySelector('#money-minus');
 
-let dummyTransactions = [ // usando os colchetes porque é um array
-    { id: 1, name: 'Bolo de brigadeiro', amount: -20},
-    { id: 2, name: 'Salário', amount: 300},
-    { id: 3, name: 'Torta de frango', amount: -10},
-    { id: 4, name: 'Violão', amount: 150}
-]
+// Aqui é onde ficarão as transações
+let dummyTransactions = [] // usando os colchetes porque é um array
 
 // Gerador de ID número aleatório
 const geradorID = () => Math.round(Math.random() * 1000);
@@ -27,13 +23,21 @@ const addTransactionInArray = (transactionName, transactionAmount) => {
 
 const handleFormSubmit = event => {
     event.preventDefault();
-    if(inputTransactionName.value.trim() === '' || 
-                inputTransactionAmount.value.trim() === '') {
-        alert('Digite a descrição e o valor da transação.');
+    
+    const isSomeInputEmpty = inputTransactionName.value.trim() === '' || inputTransactionAmount.value.trim() === '';
+
+    if (isSomeInputEmpty) {
+        alert('Informe a descrição e o valor da transação');
         return;
     }
     addTransactionInArray(inputTransactionName.value, inputTransactionAmount.value);
     init();
+    cleanInputs();
+}
+
+const cleanInputs = () => {
+    inputTransactionName.value = '';
+    inputTransactionAmount.value = '';
 }
 
 const removeTransaction = ID => {
@@ -46,9 +50,16 @@ form.addEventListener('submit', handleFormSubmit); // o form é do html
 
 const addTransactionIntoDOM = transaction => {
     const li = document.createElement('li');
+    // condição na linha if ternário
+    const operator = transaction.amount < 0 ? '-' : '+';
+    console.log('Aqui vem o operador: ' + operator);
+    const amountWithoutOperator = Math.abs(transaction.amount);
+    const CssClass = transaction.amount < 0 ? 'minus' : 'plus';
+    console.log('Valor sem o operador: ' + amountWithoutOperator);
+
     li.innerHTML = `${transaction.name}
-                    <span> R$ ${transaction.amount} </span> 
-                    <button onClick="removeTransaction(${transaction.id})" >X</button>`
+                    <span> ${operator} R$ ${amountWithoutOperator} </span> 
+                    <button class="delete-btn" onClick="removeTransaction()"></button>`
     // atribuindo um nó para o li`
     transactionsUl.append(li);
 }
